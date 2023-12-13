@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <h1>Chech available or not</h1>
+    <form>
+        <input id="domain" type="text" placeholder="enter domain name">
+        <button id="submit" type="submit">check</button>
+    </form>
+
+    <div id="data">
+        <div id="domain">
+
+        </div>
+        is
+        <div id="result">
+
+        </div>
+    </div>
+
+
+    <script>
+
+        //  const apiUrl = `https://domaincheck.httpapi.com/api/domains/available.json?auth-userid=1173445&api-key=HMfvZfdJTnX5SCzllUprx5djKqGoaXo2&domain-name=${}`
+
+        // fetch(apiUrl).then(x => x.json()).then(y => {
+        //     // console.log(y);
+        //     // document.write(y);
+        //     var z = document.getElementById("data")
+        //     z.innerHTML(y);
+        // })
+
+        const button = document.getElementById("submit");
+
+        button.addEventListener("click", (e) => {
+            e.preventDefault();
+            const domainName = document.getElementById("domain").value;
+            // const apiUrl = `https://domaincheck.httpapi.com/api/domains/available.json?auth-userid=1173445&api-key=HMfvZfdJTnX5SCzllUprx5djKqGoaXo2&domain-name=${domainName}`;
+            const apiUrl = `https://domain-availability.whoisxmlapi.com/api/v1?apiKey=at_wXokvl3jbs8T6aRyVZgYkdFAIW1us&domainName=${domainName}`;
+            // console.log(apiUrl);
+            fetch(apiUrl)
+                .then((res) => res.json())
+                .then(data => {
+                    console.log(data.DomainInfo);
+                    if (data.DomainInfo) {
+                        document.getElementById("domain").innerHTML = data.DomainInfo.domainName;
+                        document.getElementById("result").innerHTML = data.DomainInfo.domainAvailability;
+                    }
+
+                });
+
+        })
+
+
+    </script>
+
+</body>
+
+</html>
